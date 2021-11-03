@@ -1,0 +1,80 @@
+import unittest
+import random
+
+#Q4 and Q5 - define if palindrome or not
+
+def check_palindrome(word):
+    return word == word[::-1]
+
+print(check_palindrome("civic"))
+
+
+class Testing(unittest.TestCase):
+
+    # checking if the palindrome is entered as True e.g. civic
+    def test_true(self):
+        a = check_palindrome("civic")
+        self.assertTrue(a)
+
+    # # could potentially use this if the palindrome is checking for something False e.g. orange
+    def test_false(self):
+        a = check_palindrome("orange")
+        self.assertFalse(a)
+
+    #checking if the palindrome correctly identifies as equal to True e.g. civic
+    # def test_is_equal(self):
+    #     a = check_palindrome(civic)
+    #     self.assertEqual(a, True)
+
+
+# unittest.main()
+
+#Q6 try and accept
+x = random.randint(2, 8)
+y = random.randint(0, 3)
+
+#try running the code below
+try:
+    print(x/y)
+
+# if y = 0 expect to come across a ZeroDivisionError and as a result it will print can not divide by 0
+except ZeroDivisionError as error:
+    print("cant divide by zero")
+else:
+    # if y  is not 0 expect then print you do not have a zero error
+    print("You do not have a zero error")
+    # this finally will run whether we have an  error or not
+finally:
+    print("This is now completed")
+
+
+
+
+#Q9
+# in this case the result is a list of lists which give you all the possible combinations of getting this number
+#edge cases:
+# returns an empty list if nothing
+# handles a big list
+# takes into account the first pair or all pairs
+
+# avoided using nested for loops 
+
+def num_sum(array, target):
+    result = []
+    for i in range(len(array)):
+        digit = array.pop(0) #holds the value that has been popped
+        if (target - digit) in array: #array is now the array thats hold the value after the element is poped
+            result.append([digit,(target - digit)])
+    return result
+
+# print(num_sum([3, 5, -4, 8, 7, 11, 1, -1, 4, 9, 2, 8], 10))
+
+# in this case the result returns the first pair to get sum this number
+def num_sum2(array, target):
+    for i in range(len(array)):
+        digit = array.pop(0)
+        if (target - digit) in array:
+            return [digit,(target - digit)]
+    return []
+
+# print(num_sum2([3, 5, -4, 8, 7, 11, 1, -1, 4, 9, 2, 8], 10))
