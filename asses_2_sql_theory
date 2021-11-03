@@ -1,0 +1,100 @@
+1. What is the program?
+Executable software that is made up of compiled code and runs on the computer e.g. FireFox
+
+2. What is the process?
+
+
+A process uses computer resources and is an instance of a computer program that is implemented by one or more than one thread.
+
+3. What is Cache?
+Cache is used to help improve performance of a processor as is it is a small amount of memory part of the CPU and the more cache the more date is stored closer to it.
+
+4. What is Thread and Multithreading?
+A thread is a small sub process unit which follows a sequence of instructions in the CPU. Multithreading allows 2 or more threads to be running independently where they allow multiple tasks to take place at the same time by sharing resources.
+
+5. What is GIL in Python and how does it work?
+Gil prevents multi-threading from taking place as it is a process lock and only lets one thread to be executed at a time. Gil improves the performance of single threaded programs and works by having a lock on the interpreter.
+
+6. What is Concurrency and Parallelism and what are the differences?
+Concurrency able to handle more than one task at the same time but not actually finish them. Parallelism tasks are broken up into subtasks which are worked on at the same time. Concurrency uses a single cpu but parallelism uses multiple cpu’s which allows concurrency to deal with many tasks at the same time but parallelism actually completes more things at the same time.
+
+7. What do these stand for in programming: DRY, KISS, BDUF
+DRY -“don’t repeat yourself”
+KISS means “keep it simple stupid”
+BDUF means “big design up front”
+
+
+8. What is Garbage collector? How does it work?
+A garbage collector releases objects from memory by destroying it and allocating spaces for new objects. Reference counting which increases by 1 when object is referenced and the opposite happens. When it reaches 0 then the garbage collection happens. Generational garbage collection keeps track of objects in memory and seperates into generations and keeps scanning. Whatever is left over goes to the older generation
+
+9. What are ‘deadlock’ and ‘livelock’ in a relational database?
+Two or more transactions are waiting for the lock to be released so the processes are in the waiting state.
+Livelock does the opposite of deadlock are not in the waiting state as the transactions keep interfering with each other but no progress is made.
+
+
+10. What is Flask and what can we use it for
+
+Flask is a micro framework which can be used to make API’s and web applications in python and can help build applications more quickly with the help of other libraries.
+
+11. Discuss the difference between Python 2 and Python 3
+Python 3 manages strings more easily, handles the print statement as function ith parenthesis, during division gives you the actual float and stores strings in Unicode. Python 2 doesn’t handle strings as easily, uses print as a statement so no parenthesis are needed, during division will round to an integer and uses the default strings as ASCII.
+
+
+Q5 - agile methodolgy q
+
+sprint planning -> deciding what will be achieved in this sprint, delagating tasks, approximating how long they will take and setting goals that would like to be reached by the next sprint within approximately a two week frame.
+
+daily standup -> explain three key points what did you yesterday? what are you doing today? Are there any blockers for your work?
+
+sprint retrospective ->takes place after the sprint with the object of the sprint retrospective is to improve the sprints that will be held in the future.
+
+Q7) How can we connect a Python program (process) with a
+database?
+Explain how it works and how do we fetch / insert data
+into DB tables from a python program.
+
+Firstly make two python files a connector file which adds the MYSQL driver called py_connector and a config.py file.
+
+Secondly the config.py file stores the info about the HOST, USER AND PASSWORD.
+Something like:
+HOST = 'localhost'
+USER = 'your_username'
+PASSWORD = 'your_password'
+
+For the py_connector file import mysql.connector and from the config import USER, PASSWORD AND HOST
+
+Then create the connector to the db -> need to use the connector method with the arguments to connect to the sql
+
+mydb = mysql.connector.connect(
+#the host, user, password, port and db go in here
+)
+
+#want to establish the connection and open the cursor with cursor = db_connection.cursor()
+#want to query the data and work with result -> query it -> using cursor -> something like where it can be any SQL statement
+
+mycursor.execute(SELECT *FROM USER)
+
+#Now you have executed the query - You want to fetch the data
+
+
+#This will return a list of tuples of all the users in the db
+user = mycursor.fetchall()
+
+#Have a for loop of some sort to iterate through the list
+
+For user in users:
+	Print(user[3]) #to print what the user
+print(user)
+
+then do a cursor.close() to close the DB connection
+
+#use select and insert statements to fetch and insert data
+
+#use get and post methods
+
+
+
+Q8) Create an SQL query that shows the TOP 3 authors who sold the
+most books in total!
+
+SELECT author_name, SUM(sold_copies) FROM AUTHORS JOIN BOOKS ON AUTHORS.book_name = BOOKS.book_name GROUP BY author_name;
