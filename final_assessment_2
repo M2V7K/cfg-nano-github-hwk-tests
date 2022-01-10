@@ -1,0 +1,154 @@
+#Task 1
+import random
+
+class CFGStudent:
+    def __init__(self, name, surname, age, email, student_id=None):
+        self.name = name
+        self.surname = surname
+        self.age = age
+        self.email = email
+        self.student_id = student_id
+
+    def generate_id(self):
+        if not self.student_id:
+            student_id = random.randint(1000, 10000)
+            return str(student_id)
+        else:
+            return self.student_id
+
+    def get_id(self):
+        print(f"Your student id is: {self.student_id}")
+        return str(self.student_id)
+
+    def get_full_name(self):
+        print(f"The name is {self.name} and the surname is {self.surname}.")
+        return str(self.name) + " " + str(self.surname)
+
+s1 = CFGStudent("Tom", "Jones", 6, "mn@k", 9)
+print(s1.name)
+# print(s1.get_id())
+# # print(s1.get_full_name())
+# print(s1.generate_id())
+
+class NanoStudent(CFGStudent):
+    def __init__(self, name, surname, age, email, specialisation, student_id=None):
+        self.name = name
+        self.surname = surname
+        self.age = age
+        self.email = email
+        self.specialisation = specialisation
+        self.student_id = student_id
+        self.course_grades = dict()
+        CFGStudent.__init__(self, name, surname, age, email, student_id)
+
+    def generate_id(self):
+        if not self.student_id:
+            student_id = random.randint(1000, 10000)
+            return "Nano " + str(student_id)
+        else:
+            return "Nano " + str(self.student_id)
+
+    def add_courses(self, course, grade):
+        self.course_grades[course] = grade
+        return self.course_grades
+
+    def remove_course(self, course):
+        self.course_grades.pop(course)
+        return self.course_grades #what is remaining
+
+    def show_course_grades(self): #show all the subjects and grades
+        for courses, grades in self.course_grades.items():
+            print(courses, grades)
+
+# n1 = NanoStudent("Kevin", "Brookes", 12, "kv.b@hgj", "Software")
+# print(n1.generate_id())
+# print(n1.add_courses("Python", 92))
+# print(n1.add_courses("SQL", 80))
+# print(n1.add_courses("Pandas", 70))
+# print(n1.remove_course("Python"))
+# n1.show_course_grades()
+
+#Task 2
+
+def fibbonaci(n):
+    if n == 0:
+        return 0
+    elif n == 1 or n == 2:
+        return 1
+    else:
+        return fibbonaci(n-1) + fibbonaci(n-2)
+
+def f2(l): #l is the limit
+    if l < 0:
+        print("please input a number bigger than 0")
+    else:
+        sum = 0
+        for i in range(l):
+            if fibbonaci(i) % 2 == 0:
+                sum += fibbonaci(i)
+        return sum  #maybe try with list comprehension
+
+# print(f2(10))
+# print(f2(15))
+# print(f2(1))
+
+
+
+
+
+# #Task 3
+def sub_array(a1, s1):
+    if len(s1) == 1:
+        if s1[0] in a1:
+            return True
+        else:
+            return False
+
+    elif len(s1) > 1:
+        for i in s1:
+            if i not in a1:
+                return False
+        #have something where the nums in s(1) should be equal to the nums in a(1)
+        #now check if adjacent
+
+        #gives the difference
+        list_diff = []
+        for i in a1:
+            if i not in s1:
+                list_diff.append(i)
+
+        for i in list_diff:
+            a1.remove(i)
+
+        for i in range(len(a1)):
+            if a1[i] != s1[i]:
+                return False
+        return True
+
+    else: #length of s(1) is 0
+        return False
+
+print(sub_array([1,2,3,4], [1,4])) #should be TRUE
+print(sub_array([1,2,3,4], [4, 1])) #should be FALSE
+print(sub_array([5,1,22,25,6,-1,8,10], [1,6,-1,-2])) #should be FALSE
+print(sub_array([5,1,22,25,6,-1,8,10], [1,6,-1, 10])) #should be TRUE
+print(sub_array([5,1,22,25,6,-1,8,10], [25])) #should be TRUE
+
+#TASK 4
+
+#class should only do one thing
+#should be able to test the class -> can't because or errors
+#consider making some child classes that can have some functions that update things instead of changing the parent class
+# init function -> wrote self.active_status instead of self.is_active
+# init function -> wrote self.id instead of self.id_
+# update department function -> the name does not align with what it says it will do -> does not update anything
+# update department function -> do not need to pass in department name as a param -> as by using self.department you are simply getting it from the init function
+# update department function does not return anything
+# update status function -> self.active_status should be changed to self.is_active
+# update status function just reassigns the name but does not actually change anything
+# update status function -> when assigning the new variable you assign it to is on the left hand side not the right hand side
+# save_employee function -> self.active_status should be self.is_active and self.id should be self.id_
+# assuming the db_engine is just saving the paramater values as it is not appending to a list -> will just accept it as it says to in the q
+# remove_employee func -> self.id should be self.id_
+# remove_employee func -> not sure if you can only remove one element from the object at a time
+# print_employee_report -> should say self.is_active and id_
